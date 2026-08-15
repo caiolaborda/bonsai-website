@@ -107,7 +107,7 @@ async function syncPortfolio() {
       let previewVideoUrl = null;
 
       // AUTOMATED MEDIA EXTRACTION
-      if (videoUrl && ffmpegAvailable) {
+      if (videoUrl) {
         const posterFilename = `${node.id}.jpg`;
         const posterPath = path.join(PREVIEWS_DIR, posterFilename);
         const publicPosterPath = `/assets/previews/${posterFilename}`;
@@ -116,52 +116,54 @@ async function syncPortfolio() {
         const clipPath = path.join(PREVIEWS_DIR, clipFilename);
         const publicClipPath = `/assets/previews/${clipFilename}`;
         
-        let needsPoster = !image && !fs.existsSync(posterPath);
-        let needsClip = !fs.existsSync(clipPath);
+        if (ffmpegAvailable) {
+          let needsPoster = !image && !fs.existsSync(posterPath);
+          let needsClip = !fs.existsSync(clipPath);
 
-        if (needsPoster || needsClip) {
-          console.log(`[FFMPEG] Processing media for ${node.id}...`);
-          try {
-            // Get duration
-            const durationCmd = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoUrl}"`;
-            const durationStr = execSync(durationCmd).toString().trim();
-            const duration = parseFloat(durationStr) || 10;
-            const midpoint = Math.floor(duration / 2);
-            
-            if (needsPoster) {
-              const extractPosterCmd = `ffmpeg -y -ss ${midpoint} -i "${videoUrl}" -vframes 1 -q:v 2 "${posterPath}"`;
-              execSync(extractPosterCmd, { stdio: 'ignore' });
-            }
-
-            if (needsClip) {
-              const extractClipCmd = `ffmpeg -y -ss ${midpoint} -i "${videoUrl}" -t 4 -c:v libx264 -crf 24 -preset fast -vf "scale=-2:480" -an -movflags +faststart "${clipPath}"`;
-              execSync(extractClipCmd, { stdio: 'ignore' });
-            }
-            console.log(`[FFMPEG] Successfully processed media at ${midpoint}s`);
-          } catch (e) {
-            console.error(`[FFMPEG WARNING] Stream failed for ${node.id} (${e.message}). Attempting local download fallback...`);
+          if (needsPoster || needsClip) {
+            console.log(`[FFMPEG] Processing media for ${node.id}...`);
             try {
-              const tempVideo = path.join(PREVIEWS_DIR, `temp_${node.id}.mp4`);
-              execSync(`curl -s -L -o "${tempVideo}" "${videoUrl}"`);
-              
-              const durationCmd = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${tempVideo}"`;
+              // Get duration
+              const durationCmd = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoUrl}"`;
               const durationStr = execSync(durationCmd).toString().trim();
               const duration = parseFloat(durationStr) || 10;
               const midpoint = Math.floor(duration / 2);
               
               if (needsPoster) {
-                execSync(`ffmpeg -y -ss ${midpoint} -i "${tempVideo}" -vframes 1 -q:v 2 "${posterPath}"`, { stdio: 'ignore' });
+                const extractPosterCmd = `ffmpeg -y -ss ${midpoint} -i "${videoUrl}" -vframes 1 -q:v 2 "${posterPath}"`;
+                execSync(extractPosterCmd, { stdio: 'ignore' });
               }
+
               if (needsClip) {
-                execSync(`ffmpeg -y -ss ${midpoint} -i "${tempVideo}" -t 4 -c:v libx264 -crf 24 -preset fast -vf "scale=-2:480" -an -movflags +faststart "${clipPath}"`, { stdio: 'ignore' });
+                const extractClipCmd = `ffmpeg -y -ss ${midpoint} -i "${videoUrl}" -t 4 -c:v libx264 -crf 24 -preset fast -vf "scale=-2:480" -an -movflags +faststart "${clipPath}"`;
+                execSync(extractClipCmd, { stdio: 'ignore' });
               }
-              
-              if (fs.existsSync(tempVideo)) {
-                fs.unlinkSync(tempVideo);
+              console.log(`[FFMPEG] Successfully processed media at ${midpoint}s`);
+            } catch (e) {
+              console.error(`[FFMPEG WARNING] Stream failed for ${node.id} (${e.message}). Attempting local download fallback...`);
+              try {
+                const tempVideo = path.join(PREVIEWS_DIR, `temp_${node.id}.mp4`);
+                execSync(`curl -s -L -o "${tempVideo}" "${videoUrl}"`);
+                
+                const durationCmd = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${tempVideo}"`;
+                const durationStr = execSync(durationCmd).toString().trim();
+                const duration = parseFloat(durationStr) || 10;
+                const midpoint = Math.floor(duration / 2);
+                
+                if (needsPoster) {
+                  execSync(`ffmpeg -y -ss ${midpoint} -i "${tempVideo}" -vframes 1 -q:v 2 "${posterPath}"`, { stdio: 'ignore' });
+                }
+                if (needsClip) {
+                  execSync(`ffmpeg -y -ss ${midpoint} -i "${tempVideo}" -t 4 -c:v libx264 -crf 24 -preset fast -vf "scale=-2:480" -an -movflags +faststart "${clipPath}"`, { stdio: 'ignore' });
+                }
+                
+                if (fs.existsSync(tempVideo)) {
+                  fs.unlinkSync(tempVideo);
+                }
+                console.log(`[FFMPEG] Successfully processed media locally at ${midpoint}s`);
+              } catch (err) {
+                console.error(`[FFMPEG ERROR] Local fallback failed for ${node.id}:`, err.message);
               }
-              console.log(`[FFMPEG] Successfully processed media locally at ${midpoint}s`);
-            } catch (err) {
-              console.error(`[FFMPEG ERROR] Local fallback failed for ${node.id}:`, err.message);
             }
           }
         }
