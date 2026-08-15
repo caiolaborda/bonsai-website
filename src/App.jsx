@@ -62,10 +62,10 @@ const NavItem = ({ item, activeSection, handleNavigate }) => {
             ) : (
               <motion.div 
                 style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  variants={{ 
-                    rest: { scale: 1, y: item.id === 'media' ? 2 : (item.id === 'design' || item.id === 'about' ? 1 : 0) }, 
-                    hover: { scale: 1.15, y: item.id === 'media' ? 2 : (item.id === 'design' || item.id === 'about' ? 1 : 0), transition: { type: "spring", stiffness: 400, damping: 17 } } 
-                  }}
+                variants={{ 
+                  rest: { scale: 1, y: item.id === 'media' || item.id === 'design' || item.id === 'about' ? 2 : 0 }, 
+                  hover: { scale: 1.15, y: item.id === 'media' || item.id === 'design' || item.id === 'about' ? 2 : 0, transition: { type: "spring", stiffness: 400, damping: 17 } } 
+                }}
               >
                 {React.cloneElement(item.icon, { ref: iconRef })}
                 {item.id === 'media' && <Dot color="#ef4444" top="4px" left="6px" />}
@@ -135,6 +135,10 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [direction, setDirection] = useState(0);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activeSection]);
 
   const navItems = [
     { id: 'home', icon: <img src="/assets/bonsai_logo.png" alt="Home" style={{ height: '22px', width: 'auto', display: 'block', transform: 'scale(1.6)' }} className="home-nav-icon" /> },

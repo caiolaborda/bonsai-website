@@ -51,14 +51,14 @@ button {
 
 /* Scrollytelling Base */
 .scrolly-container {
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
 }
 
 .scrolly-section {
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   scroll-snap-align: start;
   display: flex;
@@ -94,7 +94,7 @@ button {
 /* App Layout */
 .app-container {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
 }
@@ -267,7 +267,7 @@ button {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   z-index: 0;
   overflow: hidden;
   background: #000;
