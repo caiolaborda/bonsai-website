@@ -282,17 +282,31 @@ function ProjectCardItem({ item, onSelect }) {
         </div>
       ) : item.videoUrl ? (
         <div className="video-container sleek skeleton-bg" style={{ pointerEvents: 'none', flex: 1, minHeight: 0, background: '#f5f5f5', position: 'relative' }}>
-          <video 
-            ref={videoRef}
-            src={item.previewVideoUrl || (item.image ? item.videoUrl : `${item.videoUrl}#t=0.1`)}
-            poster={item.image || undefined}
-            loop 
-            muted 
-            playsInline 
-            preload="metadata"
-            onLoadedData={(e) => { e.target.style.opacity = 1; e.target.parentElement.classList.remove('skeleton-bg'); }}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.image ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
-          />
+          
+          {/* BASE LAYER: Cached Image for instant loading */}
+          {item.image && (
+            <img 
+              src={item.image} 
+              alt={item.title} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, zIndex: 1 }} 
+            />
+          )}
+
+          {/* VIDEO LAYER: Only mount if it's a lightweight preview OR if the user is actively hovering */}
+          {(item.previewVideoUrl || isHovered) && (
+            <video 
+              ref={videoRef}
+              src={item.previewVideoUrl || item.videoUrl}
+              poster={item.image || undefined}
+              loop 
+              muted 
+              playsInline 
+              preload={item.previewVideoUrl ? "metadata" : "none"}
+              onLoadedData={(e) => { e.target.style.opacity = 1; e.target.parentElement.classList.remove('skeleton-bg'); }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.image && !item.previewVideoUrl ? 0 : 1, transition: 'opacity 0.5s ease-in-out', position: 'absolute', inset: 0, zIndex: 2 }}
+            />
+          )}
+
           <div style={{
             position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: 'rgba(0,0,0,0.15)', opacity: isHovered ? 0 : 1, transition: 'opacity 0.3s ease', zIndex: 5
