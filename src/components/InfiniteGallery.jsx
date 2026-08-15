@@ -232,7 +232,8 @@ export default function InfiniteGallery({ items, onSelect }) {
   }, []);
 
   const handleMouseMove = (e) => {
-    if (!isHovered) return;
+    if (!isHovered) setIsHovered(true);
+    
     const { clientX } = e;
     const { innerWidth } = window;
     
