@@ -135,6 +135,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [direction, setDirection] = useState(0);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -187,15 +188,24 @@ function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              className="video-bg"
-              src="/assets/previews/drone_preview.mp4"
-            />
-            <div className="video-overlay-light" />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              {!isHeroLoaded && (
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000', zIndex: -1 }}>
+                  <div className="spinner" style={{ width: '40px', height: '40px', border: '3px solid rgba(16,185,129,0.2)', borderTopColor: '#10b981', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                </div>
+              )}
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="video-bg"
+                src="/assets/videos/hero_showreel.mp4"
+                onCanPlay={() => setIsHeroLoaded(true)}
+                style={{ opacity: isHeroLoaded ? 1 : 0, transition: 'opacity 0.8s ease' }}
+              />
+              <div className="video-overlay-light" />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

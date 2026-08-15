@@ -7,6 +7,7 @@ function GalleryCardItem({ item, onSelect }) {
   const videoRef = useRef(null);
   const maskRef = useRef(null);
   const iconRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const maskTemplate = useMotionTemplate`radial-gradient(320px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`;
@@ -98,24 +99,40 @@ function GalleryCardItem({ item, onSelect }) {
       {/* STANDARD PROJECT RENDER (For recent works that have an image or standard videoUrl) */}
       {!item.previewVideoUrl && (item.videoUrl || item.image) ? (
         <>
-          {item.videoUrl ? (
-            <div className="video-container sleek" style={{ pointerEvents: 'none', flex: 1 }}>
-              <iframe 
-                src={item.videoUrl} 
-                title={item.title}
-                frameBorder="0" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              ></iframe>
-            </div>
-          ) : (
-            <div className="image-container sleek" style={{ flex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
-              <img 
-                src={item.image} 
-                alt={item.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            </div>
-          )}
+            {item.videoUrl ? (
+              <div className="video-container sleek" style={{ flex: 1, overflow: 'hidden', pointerEvents: 'none', position: 'relative' }}>
+                {!isLoaded && (
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.05)' }}>
+                    <div className="spinner" style={{ width: '24px', height: '24px', border: '2px solid rgba(16,185,129,0.2)', borderTopColor: '#10b981', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                  </div>
+                )}
+                <video 
+                  ref={videoRef}
+                  src={item.videoUrl} 
+                  poster={item.image}
+                  muted 
+                  playsInline 
+                  loop
+                  preload="none"
+                  onCanPlay={() => setIsLoaded(true)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
+                />
+              </div>
+            ) : (
+              <div className="image-container sleek" style={{ flex: 1, overflow: 'hidden', pointerEvents: 'none', position: 'relative' }}>
+                {!isLoaded && (
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.05)' }}>
+                    <div className="spinner" style={{ width: '24px', height: '24px', border: '2px solid rgba(16,185,129,0.2)', borderTopColor: '#10b981', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                  </div>
+                )}
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  onLoad={() => setIsLoaded(true)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }} 
+                />
+              </div>
+            )}
           <div className="gallery-caption">
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{item.title}</h3>
             <p style={{ fontSize: '0.9rem', color: '#666' }}>{item.description}</p>
