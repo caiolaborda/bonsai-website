@@ -193,7 +193,7 @@ function App() {
               muted 
               playsInline
               className="video-bg"
-              src="https://bonsaimedia.co.uk/assets/videos/container08.mp4"
+              src="/assets/previews/drone_preview.mp4"
             />
             <div className="video-overlay-light" />
           </motion.div>
