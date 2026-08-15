@@ -302,8 +302,8 @@ function ProjectCardItem({ item, onSelect }) {
               muted 
               playsInline 
               preload={item.previewVideoUrl ? "metadata" : "none"}
-              onLoadedData={(e) => { e.target.style.opacity = 1; e.target.parentElement.classList.remove('skeleton-bg'); }}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.image && !item.previewVideoUrl ? 0 : 1, transition: 'opacity 0.5s ease-in-out', position: 'absolute', inset: 0, zIndex: 2 }}
+              onLoadedData={(e) => { e.target.parentElement.classList.remove('skeleton-bg'); }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: isHovered ? 1 : 0, transition: 'opacity 0.4s ease-in-out', position: 'absolute', inset: 0, zIndex: 2 }}
             />
           )}
 
