@@ -40,8 +40,8 @@ function AboutAccordion({ onNavigate }) {
           <p className="sleek-body" style={{ marginBottom: '1.2rem', fontSize: '1.05rem', lineHeight: 1.5 }}>Whether we're designing a brand identity, shooting 360° drone footage, or coding a lightning-fast web app, my goal is to build something that looks beautiful and delivers serious ROI.</p>
           
           <div className="contact-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            <a href="tel:+440000000000" className="btn-secondary-sleek" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>Call</a>
             <a href="mailto:hello@bonsaimedia.co.uk" className="btn-secondary-sleek" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>Email</a>
+            <a href="tel:07903857815" className="btn-secondary-sleek" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>Call Us: 07903857815</a>
             <button onClick={() => onNavigate && onNavigate('booking')} className="btn-secondary-sleek" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', cursor: 'pointer', border: '1px solid rgba(0,0,0,0.1)', background: 'transparent' }}>Book a Meeting</button>
           </div>
         </div>
