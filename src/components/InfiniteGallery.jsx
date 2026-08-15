@@ -259,8 +259,9 @@ export default function InfiniteGallery({ items, onSelect }) {
     targetSpeed.current = 1.0; 
   };
 
-  // Duplicate items EXACTLY once to make the scrollWidth / 2 math perfect
-  const displayItems = [...items, ...items];
+  // Duplicate items multiple times to ensure scrollWidth is massively larger than clientWidth on large screens.
+  // This ensures the scrollWidth / 2 math never hits a physical boundary before snapping.
+  const displayItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items];
 
   const handleScrollLeft = (e) => {
     e.stopPropagation();
