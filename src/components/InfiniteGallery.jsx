@@ -161,7 +161,7 @@ function GalleryCardItem({ item, onSelect }) {
               <video 
                 ref={videoRef}
                 src={item.previewVideoUrl} 
-                preload="auto"
+                preload="none"
                 loop 
                 muted 
                 playsInline
@@ -260,9 +260,9 @@ export default function InfiniteGallery({ items, onSelect }) {
     targetSpeed.current = 1.0; 
   };
 
-  // Duplicate items multiple times to ensure scrollWidth is massively larger than clientWidth on large screens.
+  // Duplicate items 4 times to ensure scrollWidth is significantly larger than clientWidth
   // This ensures the scrollWidth / 2 math never hits a physical boundary before snapping.
-  const displayItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items];
+  const displayItems = [...items, ...items, ...items, ...items];
 
   const handleScrollLeft = (e) => {
     e.stopPropagation();
