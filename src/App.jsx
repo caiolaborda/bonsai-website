@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { VideoIcon, MonitorIcon, CalendarIcon, UserIcon } from '@animateicons/react/lucide';
 import { Cog, Phone } from 'lucide-react';
