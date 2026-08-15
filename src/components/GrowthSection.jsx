@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, BarChart, Settings, Search, Rocket, Users, Database, Cpu, TrendingUp, Target, BarChart2, Layout, Palette, Film } from 'lucide-react';
+import { Bot, BarChart, Settings, Search, Rocket, Users, Database, Cpu, TrendingUp, Target, BarChart2, Layout, Palette, Film, Compass, BarChart3, ShoppingCart, Play, MonitorSmartphone, Sparkles } from 'lucide-react';
 import BranchNav from './BranchNav';
 import Timeline from './Timeline';
 import Lightbox from './Lightbox';
@@ -31,28 +31,69 @@ export default function GrowthSection({ onNavigate, direction }) {
 
   const services = [
     {
-      title: "Strategic Partnership",
-      description: "Deep integration into your daily processes.",
-      extendedText: "We work super closely with your team to understand, refine, and integrate your daily tools, finding high-impact ways to make life better and easier.",
-      icon: <Users />,
-      color: "#10b981",
-      crossSell: { title: "Bespoke Web Platforms", nav: "design", icon: <Layout size={18} /> }
-    },
-    {
-      title: "Data & Automation",
-      description: "Automated scraping and data processing.",
-      extendedText: "We build bespoke automation pipelines that handle data analysis, web scraping, and heavy processing so your team can focus on strategy.",
-      icon: <Database />,
+      title: "Brand & Digital Strategy",
+      description: "Elite strategic roadmapping for your business.",
+      extendedText: "We partner deeply with your leadership team to define market positioning, architectural consulting, and long-term digital growth roadmaps.",
+      icon: <Compass />,
       color: "#f59e0b",
-      crossSell: { title: "Brand Identity", nav: "design", icon: <Palette size={18} /> }
+      crossSell: { title: "Bespoke Web Platforms", nav: "design", icon: <Layout size={18} /> },
+      valueProps: [
+        { title: "Clarity", desc: "A unified direction for your entire digital ecosystem." },
+        { title: "Positioning", desc: "Identifying and exploiting gaps in your competitors' strategies." },
+        { title: "Architecture", desc: "Planning the right tech stack before writing a single line of code." }
+      ]
     },
     {
-      title: "AI & Systems Sync",
-      description: "Unifying disparate digital tools.",
-      extendedText: "From deploying intelligent AI chatbots to linking completely disconnected software, we unify your tech stack into a single, seamless ecosystem.",
-      icon: <Cpu />,
+      title: "Dashboards & Analytics",
+      description: "Live reporting and custom data visualization.",
+      extendedText: "We transform complex data sets into clear, actionable, and visually stunning dashboards that make managing your business effortless.",
+      icon: <BarChart3 />,
+      color: "#3b82f6",
+      crossSell: { title: "E-Commerce Storefronts", nav: "design", icon: <ShoppingCart size={18} /> },
+      valueProps: [
+        { title: "Clarity", desc: "Clean UI that highlights the metrics that actually matter." },
+        { title: "Real-Time", desc: "Live data integrations for up-to-the-second insights." },
+        { title: "User-Centric", desc: "Workflows designed for how your team actually works." }
+      ]
+    },
+    {
+      title: "Custom AI Agents",
+      description: "Intelligent, brand-trained digital assistants.",
+      extendedText: "We train and deploy bespoke AI agents that automate your internal workflows and provide hyper-personalized experiences for your users.",
+      icon: <Bot />,
+      color: "#8b5cf6",
+      crossSell: { title: "Interactive Experiences", nav: "design", icon: <Sparkles size={18} /> },
+      valueProps: [
+        { title: "Brand Aligned", desc: "AI that actually sounds and acts exactly like your brand." },
+        { title: "24/7 Automation", desc: "Qualify leads and handle inquiries around the clock." },
+        { title: "Secure", desc: "Private implementations that protect your proprietary data." }
+      ]
+    },
+    {
+      title: "Workflow Automation",
+      description: "Eliminating manual labor through API syncing.",
+      extendedText: "We build bespoke automation pipelines that handle heavy processing, syncing completely disconnected software so your team can focus on strategy.",
+      icon: <Settings />,
+      color: "#10b981",
+      crossSell: { title: "Campaign Microsites", nav: "design", icon: <MonitorSmartphone size={18} /> },
+      valueProps: [
+        { title: "Efficiency", desc: "Reclaim hundreds of hours of manual administrative labor." },
+        { title: "Accuracy", desc: "Eliminate human error from repetitive data entry tasks." },
+        { title: "Scalability", desc: "Systems that handle 10x volume without hiring more staff." }
+      ]
+    },
+    {
+      title: "Data Pipelines & Scraping",
+      description: "Automated data extraction and processing.",
+      extendedText: "Custom Python automation pipelines that extract live market data, supplier information, or competitor pricing into unified databases.",
+      icon: <Database />,
       color: "#ef4444",
-      crossSell: { title: "Promo Videos", nav: "media", icon: <Film size={18} /> }
+      crossSell: { title: "Social Media", nav: "media", icon: <Play size={18} /> },
+      valueProps: [
+        { title: "Market Intel", desc: "Always-on monitoring of your competitors and suppliers." },
+        { title: "Aggregation", desc: "Pulling from dozens of sources into one clean feed." },
+        { title: "API Creation", desc: "Turning unstructured web data into clean REST APIs." }
+      ]
     }
   ];
 

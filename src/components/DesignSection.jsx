@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layout, Palette, Code, TrendingUp, Film, Play } from 'lucide-react';
+import { Layout, Palette, Code, TrendingUp, Film, Play, ShoppingCart, Sparkles, MonitorSmartphone, Presentation, Compass, BarChart3, Bot, Eye } from 'lucide-react';
 import BranchNav from './BranchNav';
 import Timeline from './Timeline';
 import ServiceBento from './ServiceBento';
 import Lightbox from './Lightbox';
 import InfiniteGallery from './InfiniteGallery';
 import ProjectGrid from './ProjectGrid';
-import { Eye } from 'lucide-react';
 import usePortfolio from '../hooks/usePortfolio';
 
 const pageVariants = {
@@ -36,12 +35,12 @@ export default function DesignSection({ onNavigate, direction }) {
   const services = [
     {
       title: "Bespoke Web Platforms",
-      description: "Performance-driven web platforms for modern visionaries.",
+      description: "High-performance, stunning web presences.",
       extendedText: "We build highly tailored, scalable web platforms that blend striking visual design with robust underlying architecture. From corporate sites to complex web applications.",
       icon: <Layout />,
       color: "#0ea5e9",
-      tagMatch: ['Web Design', 'Websites', 'E-Commerce'],
-      crossSell: { title: "Growth Strategy", nav: "growth", icon: <TrendingUp size={18} /> },
+      tagMatch: ['Web Design', 'Websites'],
+      crossSell: { title: "Brand & Digital Strategy", nav: "growth", icon: <Compass size={18} /> },
       valueProps: [
         { title: "Blazing Fast", desc: "Built on modern frameworks ensuring instant load times and perfect SEO." },
         { title: "Fully Custom", desc: "No templates. Every pixel is hand-crafted to fit your brand exactly." },
@@ -49,31 +48,73 @@ export default function DesignSection({ onNavigate, direction }) {
       ]
     },
     {
-      title: "UI / UX Design",
-      description: "Gorgeous interfaces and frictionless user journeys.",
-      extendedText: "Our user-centric design process ensures that every interaction is intuitive and beautiful, maximizing engagement and converting visitors into loyal clients.",
-      icon: <Code />,
-      color: "#8b5cf6",
-      tagMatch: ['SaaS', 'App Design'],
+      title: "E-Commerce Storefronts",
+      description: "Frictionless digital shopping experiences.",
+      extendedText: "We design seamless shopping experiences that reduce friction, build brand loyalty, and maximize average order value from landing page to checkout.",
+      icon: <ShoppingCart />,
+      color: "#10b981",
+      tagMatch: ['E-Commerce'],
       crossSell: { title: "Promo Videos", nav: "media", icon: <Film size={18} /> },
       valueProps: [
-        { title: "User Retention", desc: "Intuitive flows that keep users engaged and reduce churn." },
-        { title: "Accessibility", desc: "Designs that look stunning while remaining fully accessible to all." },
-        { title: "Prototyping", desc: "Interactive mockups you can test before writing a single line of code." }
+        { title: "Conversion Optimized", desc: "UX designed specifically to reduce cart abandonment." },
+        { title: "Seamless Checkout", desc: "Frictionless payment gateways and smooth user flows." },
+        { title: "Inventory Sync", desc: "Robust integrations with your back-office and fulfillment systems." }
+      ]
+    },
+    {
+      title: "Interactive Experiences",
+      description: "Immersive, boundary-pushing web interactions.",
+      extendedText: "Break the mold with highly interactive, visually stunning digital experiences that engage users through advanced animations, 3D elements, and gamification.",
+      icon: <Sparkles />,
+      color: "#8b5cf6",
+      tagMatch: ['Interactive', 'Web Design'],
+      crossSell: { title: "Custom AI Agents", nav: "growth", icon: <Bot size={18} /> },
+      valueProps: [
+        { title: "Memorable", desc: "Experiences that users actually want to share." },
+        { title: "Engaging", desc: "Micro-interactions that make the site feel alive." },
+        { title: "Performant", desc: "Smooth 60fps animations that don't drain batteries." }
+      ]
+    },
+    {
+      title: "Campaign Microsites",
+      description: "High-impact, temporary digital experiences.",
+      extendedText: "Perfect for product launches or marketing activations, we design highly memorable, interactive mini-sites that bridge the gap between media campaigns and digital touchpoints.",
+      icon: <MonitorSmartphone />,
+      color: "#f59e0b",
+      tagMatch: ['Microsites', 'Promotional'],
+      crossSell: { title: "Social Media", nav: "media", icon: <Play size={18} /> },
+      valueProps: [
+        { title: "High Impact", desc: "Bold, unconstrained design rules tailored for a single goal." },
+        { title: "Rapid Deployment", desc: "Built and launched quickly to align with your marketing beats." },
+        { title: "Highly Shareable", desc: "Designed from the ground up to go viral and capture leads." }
       ]
     },
     {
       title: "Brand Identity",
-      description: "Holistic digital identities and immersive style guides.",
-      extendedText: "Beyond websites, we craft the core DNA of your brand. From logo design and typography to comprehensive digital asset libraries, ensuring consistency across every touchpoint.",
+      description: "The overarching visual DNA of your enterprise.",
+      extendedText: "We craft the core aesthetic of your brand. From logo design and typography to comprehensive digital asset libraries, ensuring absolute consistency.",
       icon: <Palette />,
       color: "#ec4899",
       tagMatch: ['Branding', 'Corporate'],
-      crossSell: { title: "Social Media", nav: "media", icon: <Play size={18} /> },
+      crossSell: { title: "Brand & Digital Strategy", nav: "growth", icon: <Compass size={18} /> },
       valueProps: [
         { title: "Consistency", desc: "A unified look across your website, socials, and print materials." },
         { title: "Authority", desc: "Look like the market leader from day one with a premium identity." },
         { title: "Brand Bible", desc: "Comprehensive guidelines so your team never goes off-brand." }
+      ]
+    },
+    {
+      title: "Pitch Decks & Presentations",
+      description: "High-stakes visual storytelling.",
+      extendedText: "We design investor pitch decks and keynote presentations that command authority, utilizing gorgeous data visualization to help you win high-ticket deals.",
+      icon: <Presentation />,
+      color: "#ef4444",
+      tagMatch: ['Pitch Decks', 'Presentations'],
+      crossSell: { title: "Dashboards & Analytics", nav: "growth", icon: <BarChart3 size={18} /> },
+      valueProps: [
+        { title: "Persuasive", desc: "Information hierarchy designed to drive the narrative forward." },
+        { title: "Data Visualization", desc: "Turning complex numbers into immediately understandable graphs." },
+        { title: "Enterprise Grade", desc: "Slide decks that look like they belong in a Fortune 500 boardroom." }
       ]
     }
   ];
