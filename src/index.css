@@ -1361,3 +1361,285 @@ button {
 
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- MERGED HOME + ABOUT SECTION & AMBIENT AURORA --- */
+.ambient-aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.45;
+  animation: floatAurora 14s ease-in-out infinite alternate;
+}
+.orb-emerald {
+  width: 48vw;
+  height: 48vw;
+  max-width: 620px;
+  max-height: 620px;
+  top: -12%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.16), transparent 70%);
+}
+.orb-sky {
+  width: 45vw;
+  height: 45vw;
+  max-width: 580px;
+  max-height: 580px;
+  bottom: -10%;
+  right: -6%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.14), transparent 70%);
+  animation-delay: -7s;
+}
+@keyframes floatAurora {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 20px) scale(1.08); }
+}
+
+.home-branch-area {
+  margin-top: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+.home-tab-stage {
+  width: 100%;
+  height: 100%;
+  padding: 22px 24px 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.home-tab-stage-column {
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 3-Pillar Spotlight Stage */
+.home-pillars-stage {
+  width: 100%;
+  max-width: 1180px;
+  flex: 1;
+  min-height: 0;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.home-pillar-card {
+  flex: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  height: 100%;
+  min-height: 300px;
+  position: relative;
+}
+
+/* Strictly 2-line aligned description across all 3 cards */
+.pillar-aligned-desc {
+  font-size: 0.9rem !important;
+  color: #555 !important;
+  margin: 0 0 0.95rem 0 !important;
+  line-height: 1.48 !important;
+  height: 2.96em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Single-Row 3-Chip Bar (Proportional flex widths so longer labels never chop) */
+.pillar-chips-single-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+.pillar-quick-chip {
+  flex: 1 1 auto;
+  padding: 6px 8px;
+  border-radius: 100px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.045);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.pillar-quick-chip:hover {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+  transform: translateY(-1px);
+}
+
+/* Whisper-quiet trust anchor underneath the 3 pillar cards */
+.home-trust-microline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  color: #777;
+  transition: color 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+.home-trust-microline strong {
+  font-weight: 600;
+  color: #444;
+}
+.home-trust-microline .trust-dot {
+  opacity: 0.45;
+}
+.home-trust-microline .trust-more {
+  color: #059669;
+  font-weight: 600;
+}
+.home-trust-microline:hover {
+  background: rgba(0, 0, 0, 0.035);
+  color: #333;
+}
+
+/* Founder / Trusted Brands Card */
+.home-about-card {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 28px;
+  padding: 2.1rem 2.6rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+}
+.home-about-watermark {
+  position: absolute;
+  right: -40px;
+  bottom: -30px;
+  color: #6366f1;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Client Success 2-Card Grid */
+.home-proof-grid {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+.home-testimonial-card {
+  position: relative;
+  border-radius: 28px;
+  padding: 2.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+/* Mobile Responsive Adjustments for Merged Home Section */
+@media (max-width: 768px) {
+  .home-section-wrapper {
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 0.75rem !important;
+    padding-bottom: 115px !important;
+    display: block !important;
+  }
+  .home-content-container {
+    height: auto !important;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-header-sleek {
+    padding: 0 12px !important;
+    margin-bottom: 0 !important;
+  }
+  .home-header-sleek .section-title {
+    font-size: 2.25rem !important;
+    letter-spacing: -1.2px !important;
+    margin-bottom: 0.1rem !important;
+    line-height: 1.05 !important;
+  }
+  .home-header-sleek .sleek-text {
+    font-size: 0.88rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.55rem !important;
+    padding: 0 8px !important;
+    max-width: 340px !important;
+  }
+  .home-header-sleek .branch-nav-container {
+    width: calc(100% - 1.5rem) !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+    gap: 2px !important;
+    border-radius: 100px !important;
+    justify-content: space-between !important;
+  }
+  .home-header-sleek .branch-btn {
+    padding: 7px 9px !important;
+    font-size: 0.75rem !important;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  .home-branch-area {
+    flex: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .home-branch-area > div {
+    height: auto !important;
+  }
+  .home-tab-stage {
+    height: auto !important;
+    padding: 12px 14px 20px 14px;
+    align-items: flex-start;
+  }
+  .home-pillars-stage {
+    grid-template-columns: 1fr;
+    height: auto !important;
+    gap: 12px;
+  }
+  .home-pillar-card {
+    min-height: 195px;
+    height: auto !important;
+  }
+  .home-pillar-card .gallery-caption {
+    padding: 1.5rem 1.15rem 1.1rem 1.15rem !important;
+  }
+  .pillar-aligned-desc {
+    height: auto !important;
+    margin-bottom: 0.7rem !important;
+    font-size: 0.86rem !important;
+  }
+  .home-trust-microline {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+  }
+  .home-about-card {
+    padding: 1.4rem;
+  }
+  .home-proof-grid {
+    grid-template-columns: 1fr;
+    height: auto !important;
+    gap: 12px;
+  }
+  .home-testimonial-card {
+    padding: 1.4rem;
+    height: auto !important;
+  }
+}
